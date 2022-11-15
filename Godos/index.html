@@ -7,7 +7,8 @@
 </head>
 
 <body>
-
+    <h1>Lista de Reyes Godos</h1>
+    <ul id="lista"></ul>
 
     <script>
 
@@ -17,17 +18,45 @@
 
             if (this.readyState == 4 && this.status == 200) {
 
-                var lista_motes = JSON.parse(this.responseText);
-                lista_godos(lista_motes);
+                var lista_reyes = JSON.parse(this.responseText);
+                lista_godos(document.getElementById("lista"), lista_reyes);
+            }
         }
-    }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
 
 
-        lista_godos = (lista) =>{
+        lista_godos = (lista, reyes) => {
 
-            
+            if (!Array.isArray(reyes)) //Si se pasa el objeto reyesgodos
+                reyes = reyes.reyesgodos; //Se accede al array de reyes
+
+            reyes.map(r => { //Recorre la lista de reyes
+
+                let li = document.createElement("li"); //Crea el li de cada uno
+
+                if (typeof r === "string") { //Si no tiene hijos
+
+                    let txt = document.createTextNode(r); //r es el nombre
+                    li.appendChild(txt);
+
+                } else { //Tiene hijos
+
+                    let txt = document.createTextNode(r.nombre); //Añade el nombre
+                    li.appendChild(txt);
+
+                    let ul = document.createElement("ul"); //Crea lista para los hijos
+                    lista_godos(ul, r.hijos); //Llamada recursiva a los hijos
+                    li.appendChild(ul); //La añade al li del padre
+
+                }
+
+
+                lista.appendChild(li);
+
+            })
+
+
         }
     </script>
 </body>
