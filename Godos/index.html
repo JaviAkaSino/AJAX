@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reyes Godos - Javier Parodi</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost/AJAX/Godos/godos.php";
+        xmlhttp.onreadystatechange = function () {
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                var lista_motes = JSON.parse(this.responseText);
+                lista_godos(lista_motes);
+        }
+    }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+
+        lista_godos = (lista) =>{
+
+            
+        }
+    </script>
+</body>
+
+</html>
