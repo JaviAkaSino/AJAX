@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nombres - Javier Parodi</title>
+</head>
+
+<body>
+    <ol id="lista">
+        <li>Perico</li>
+        <li>Juanico</li>
+        <ul>
+            <li>Jose</li>
+            <ul>
+                <li>Roman</li>
+                <li>Marco</li>
+                <li>Rodrigo</li>
+            </ul>
+            <li>Jose</li>
+            <li>Lorenzo</li>
+
+            <ul>
+                <li>Dimas</li>
+                <li>Gestas</li>
+                <li>Malakatos</li>
+                <li>Jose</li>
+            </ul>
+        </ul>
+        <li>Sofoclis</li>
+    </ol>
+
+    <script>
+
+        changeMan = (obj, man1, man2) => {
+            if (obj.tagName == "LI") {
+                if (obj.innerHTML.toUpperCase() == man1)
+                    obj.innerHTML = man2;
+
+            } else {
+                Array.from(obj.children).map(c => changeMan(c, man1, man2));
+            }
+
+        }
+
+
+
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost/AJAX/Nombres/data.json";
+        xmlhttp.onreadystatechange = function () {
+
+            if (this.readyState == 4 && this.status == 200) {
+
+                var lista_motes = JSON.parse(this.responseText);
+                lista_motes.map(m => changeMan(document.getElementById("lista"), m.nombre, m.mote))
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+
+    </script>
+</body>
+
+</html>
