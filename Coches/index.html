@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coches - Javier Parodi</title>
+</head>
+
+<body>
+    <p id="listado"></p>
+
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+                recuperaDatos(this);
+            }    
+        };
+        xmlhttp.open("GET", "coches.xml", true);
+        xmlhttp.send();
+
+        function recuperaDatos(xml) {
+            var datos = "";
+            var xmlDatos = xml.responseXML;
+
+            let array = xmlDatos.getElementsByTagName("marca");
+            for ( let i = 0; i < array.length; i++) {
+                datos += "<p><strong>Marca:</strong> " + array[i].childNodes[0].nodeValue + "</p>";
+            }
+            document.getElementById("listado").innerHTML = datos;
+
+        }
+    </script>
+</body>
+
+</html>

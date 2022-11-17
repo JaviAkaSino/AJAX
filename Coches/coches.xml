@@ -1,0 +1,23 @@
+<concesionario>
+    <coche>
+        <marca>Opel</marca>
+        <modelo>Zafira</modelo>
+        <color>Gris Lobo</color>
+        <año>2007</año>
+        <precio>24500</precio>
+    </coche>
+    <coche>
+        <marca>Seat</marca>
+        <modelo>Ibiza</modelo>
+        <color>Azul Marino</color>
+        <año>2018</año>
+        <precio>18000</precio>
+    </coche>
+    <coche>
+        <marca>Opel</marca>
+        <modelo>Mokka X</modelo>
+        <color>Blanco</color>
+        <año>2015</año>
+        <precio>26200</precio>
+    </coche>
+</concesionario>
