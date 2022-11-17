@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Minevancic - Javier Parodi</title>
+</head>
+
+<body>
+
+
+    <script>
+        /*let minas = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ];*/
+
+
+        //FUNCIONES
+
+        function rodear(matriz, x, y, valor) {
+
+            for (let i = x - 1; i <= x + 1; i++) {
+
+                for (let j = y - 1; j <= y + 1; j++) {
+                    //Controla que no se salga del array
+                    if (i >= 0 && i < matriz.length && j >= 0 && j < matriz[0].length) {
+
+                        if (matriz[i][j] == 0 && valor < 6) { //No comprueba que no sea el mismo porque nunca será 0
+
+                            matriz[i][j] = valor;
+                        }
+                    }
+                }
+            }
+        }
+
+        function buscaminas(matriz, valor) {
+
+            for (let i = 0; i < matriz.length; i++) {
+
+                for (let j = 0; j < matriz.length; j++) {
+
+                    if (matriz[i][j] == valor) { //Si encuentra el valor
+
+                        rodear(matriz, i, j, valor + 1); //La rodea del siguiente 
+                    }
+                }
+            }
+        }
+
+        function minevancic(matriz) {
+
+            buscaminas(matriz, 1);
+            buscaminas(matriz, 2);
+            buscaminas(matriz, 3);
+            buscaminas(matriz, 4);
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+        var url = "minas.json";
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var minas = JSON.parse(this.responseText);
+                minevancic(minas);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+
+
+        console.table(minas);
+    </script>
+
+</body>
+
+</html>
