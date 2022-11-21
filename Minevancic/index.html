@@ -4,16 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Minevancic - Javier Parodi</title>
+    <style>
+        table, th, td{
+            border-collapse: collapse;
+            border: 1px solid black;
+            padding: 1rem; 
+        }
+    </style>
 </head>
 
 <body>
-
+    <h1>Minevancic</h1>
+    <table id="tabla"></table>
 
     <script>
         /*let minas = [
             [0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 1, 0],
             [0, 0, 0, 0, 0, 1, 0],
             [0, 0, 0, 0, 0, 0, 0]
@@ -44,10 +52,19 @@
             for (let i = 0; i < matriz.length; i++) {
 
                 for (let j = 0; j < matriz.length; j++) {
+                    if (valor != 4) { //Si el valor no es 4
 
-                    if (matriz[i][j] == valor) { //Si encuentra el valor
+                        if (matriz[i][j] == valor) { //Si encuentra el valor
 
-                        rodear(matriz, i, j, valor + 1); //La rodea del siguiente 
+                            rodear(matriz, i, j, valor + 1); //La rodea del siguiente 
+                        }
+
+                    } else { //Si el valor es 4, rellena los vacíos con 5
+
+                        if (matriz[i][j] == 0) { //Si está vacío
+
+                            matriz[i][j] = 5;
+                        }
                     }
                 }
             }
@@ -61,20 +78,36 @@
             buscaminas(matriz, 4);
         }
 
+        function matrix_to_table (matriz, tabla){
+            for(let i = 0; i < matriz.length; i++){
+
+                let tr = document.createElement("TR");
+
+                for (let j = 0; j <matriz[0].length; j++){
+
+                    let td = document.createElement("TD");
+                    let txt = document.createTextNode(matriz[i][j]);
+                    td.appendChild(txt);
+                    tr.appendChild(td);
+                }
+                tabla.appendChild(tr);
+            }
+
+        }
+
         var xmlhttp = new XMLHttpRequest();
         var url = "minas.json";
+        var minas;
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                var minas = JSON.parse(this.responseText);
+                minas = JSON.parse(this.responseText);
                 minevancic(minas);
+                matrix_to_table (minas, document.getElementById("tabla"));
             }
         };
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
 
-
-
-        console.table(minas);
     </script>
 
 </body>

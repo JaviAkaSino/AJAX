@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carga POST</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#boton_suma").click(function () {
+                $.post("suma.php",
+                    $("#formulario").serialize(),
+                    function (data, status) {
+                        console.log($("#formulario").serialize());
+                        console.log(data);
+                        console.log(status);
+                        
+                        $("#respuesta").html(data);
+                    })
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <h1>Suma</h1>
+    <form action="suma.html" method="post" id="formulario">
+        <input type="number" id="valor1" name="valor1" autofocus />
+        <input type="number" id="valor2" name="valor2" />
+        <input type="button" id="boton_suma" value="Suma" />
+    </form>
+    <p id="respuesta"></p>
+</body>
+
+</html>

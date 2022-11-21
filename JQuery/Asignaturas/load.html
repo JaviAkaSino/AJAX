@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carga simple</title>
+    <!--La librería está minificada, es decir, comprimida-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready( function(){
+            $("#boton_datos").click( function(){
+                $("#lista").load("datos.html");
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Asignaturas</h1>
+    <ul id="lista"></ul>
+    <button id="boton_datos">Cargar asignaturas</button>
+</body>
+</html>
